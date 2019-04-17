@@ -1,13 +1,17 @@
-console.clear();
-function dateCtrl(date) {
+/**
+ * @param {String} date
+ * @returns {Object}
+ */
+module.exports = function (date) {
+
   var dateObj = new Date(date);
   var timeTypes = ['years', 'months', 'days', 'hours', 'minutes'];
   return {
-    add: function (timeNumber, timeType ) {
-      if(timeTypes.indexOf(timeType) === -1){
+    add: function (timeNumber, timeType) {
+      if (timeTypes.indexOf(timeType) === -1) {
         throw new TypeError('Неверный тип времени');
       }
-      if(timeNumber < 0) {
+      if (timeNumber < 0) {
         throw new TypeError('Некорректное число');
       }
       switch (timeType) {
@@ -34,10 +38,10 @@ function dateCtrl(date) {
       }
     },
     subtract: function (timeNumber, timeType) {
-      if(timeTypes.indexOf(timeType) === -1){
+      if (timeTypes.indexOf(timeType) === -1) {
         throw new TypeError('Неверный тип времени');
       }
-      if(timeNumber < 0) {
+      if (timeNumber < 0) {
         throw new TypeError('Некорректное число');
       }
       switch (timeType) {
@@ -65,39 +69,35 @@ function dateCtrl(date) {
     },
     value: formatDate(dateObj)
   }
-}
+};
 
 function formatDate(dateObj) {
-  console.log(dateObj);
-  console.log(dateObj.getMinutes());
   var result = '',
-      year = dateObj.getFullYear(),
-      month = dateObj.getMonth() + 1,
-      day = dateObj.getDate(),
-      hours = dateObj.getHours(),
-      minutes = dateObj.getMinutes();
+    year = dateObj.getFullYear(),
+    month = dateObj.getMonth() + 1,
+    day = dateObj.getDate(),
+    hours = dateObj.getHours(),
+    minutes = dateObj.getMinutes();
 
-  if(String(month).length < 2) {
+  if (String(month).length < 2) {
     month = '0' + month;
   }
 
-  if(String(day).length < 2) {
+  if (String(day).length < 2) {
     day = '0' + day;
+  }
+
+  if(String(hours).length < 2) {
+    hours = '0' + hours;
   }
 
   if(String(minutes).length < 2) {
     minutes = '0' + minutes;
   }
 
+
+
   result = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes;
 
   return result;
 }
-
-var time = dateCtrl('2017-05-16 13:45')
-    .add(24, 'hours')
-    .subtract(1, 'months')
-    .add(3, 'days')
-    .add(15, 'minutes');
-
-    console.log(time.value);
